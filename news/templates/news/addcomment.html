@@ -1,0 +1,27 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+
+<form action="{% url 'addcomment' post_slug %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-error">{{ form.non_field_errors }}</div>
+
+{% for f in form %}
+<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+
+
+    <button type="submit">Добавить</button>
+</form>
+
+{% else %}
+
+<h1>Чтобы добавить комментарий - авторизуйтесь</h1>
+
+{% endif %}
+
+{% endblock %}
+l>
